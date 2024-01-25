@@ -1,0 +1,12 @@
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.formGroup input {
+  width: 200px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  border: 1px solid #c3c3c3;
+}
