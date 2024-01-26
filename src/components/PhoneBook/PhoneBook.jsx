@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import styles from './phone-book.module.css';
 
@@ -11,14 +11,22 @@ import Contacts from './Contacts/Contacts';
 const PhoneBook = () => {
   const [contacts, setContacts] = useState(() => {
     const data = JSON.parse(localStorage.getItem('contacts'));
-    console.log(data);
+
     return data || [];
   });
   const [filter, setFilter] = useState('');
 
+  const firstRender = useRef(true);
+
   useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
+    if (!firstRender.current) {
+      localStorage.setItem('contacts', JSON.stringify(contacts));
+    }
   }, [contacts]);
+
+  useEffect(() => {
+    firstRender.current = false;
+  }, []);
 
   const isDublicate = ({ name, phone }) => {
     const normalizedName = name.toLowerCase();
