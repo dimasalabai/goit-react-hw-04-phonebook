@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 
 import styles from './phone-book.module.css';
 
@@ -63,12 +63,11 @@ const PhoneBook = () => {
       return [...prevContacts, newContact];
     });
   };
-
-  const deleteСontact = id => {
+  const deleteСontact = useCallback(id => {
     setContacts(prevContacts => prevContacts.filter(item => item.id !== id));
-  };
+  }, []);
 
-  const changeFilter = ({ target }) => setFilter(target.value);
+  const changeFilter = useCallback(({ target }) => setFilter(target.value), []);
 
   const getFilteredContacts = () => {
     if (!filter) {
